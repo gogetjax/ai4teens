@@ -15,14 +15,17 @@ By the end, students can:
 1. Warm-up: what makes something an *argument* vs. just an opinion? (10 min)
 2. Read the example argument together (5 min)
 3. Phase 1 — break it down by hand, then with AI (see `phase-1-analysis.md`)
-4. Phase 2 — build and evaluate a counterargument *(added in a later PR)*
+4. Phase 2 — build and evaluate a counterargument (see `phase-2-counterargument.md`)
 5. Debrief: where did AI help, and where did it try to do your thinking for you?
 
 ## Materials
 - `example-argument.md` — the argument students analyze (includes a facilitator answer key)
 - `phase-1-analysis.md` — the Phase 1 activity
+- `phase-2-counterargument.md` — the Phase 2 activity
+- `phase-2-rubric.md` — rubric for scoring a counterargument
+- `prompts/phase-2-counter.md` — reusable build + evaluate prompts
 - `prompts/phase-1-analyze.md` — the reusable AI prompt
-- `worksheets/student-worksheet.md` — copyable student worksheet
+- `worksheets/student-worksheet.md` and `worksheets/phase-2-worksheet.md` — copyable student worksheets
 
 ## Facilitator note on AI use
 The prompts are written to make the AI *show its reasoning* and *hand judgment back to
