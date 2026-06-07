@@ -26,6 +26,9 @@ By the end, students can:
 - `prompts/phase-2-counter.md` — reusable build + evaluate prompts
 - `prompts/phase-1-analyze.md` — the reusable AI prompt
 - `worksheets/student-worksheet.md` and `worksheets/phase-2-worksheet.md` — copyable student worksheets
+- `example-argument-2-late-work.md` — second example argument (late work)
+- `example-argument-3-ai-essays.md` — third example argument (AI essays)
+- `facilitator-counterargument-examples.md` — worked AI counterarguments for examples 2 & 3 (facilitator only)
 
 ## Facilitator note on AI use
 The prompts are written to make the AI *show its reasoning* and *hand judgment back to
