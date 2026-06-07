@@ -20,6 +20,7 @@ Write a counterargument to the original. As you do:
   ignoring it or twisting it into something easier to beat.
 - Use reasoning or realistic evidence, not just confident assertions.
 - Don't insult the person or attack their motives — beat the argument, not the arguer.
+- And actually write the argument itself, not tell me about the argument to write. 
 
 After the counterargument, add a short note: which part of your counter is the most solid,
 and which part is the weakest or easiest to push back on? End by asking me one question
