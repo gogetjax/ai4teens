@@ -33,6 +33,7 @@ Each workshop lives in its own folder under `workshops/` and contains:
 | Day | Topic | What students learn |
 |-----|-------|---------------------|
 | 01  | Arguments & Counterarguments | Break down someone's argument, then use AI to build and evaluate a counterargument that targets its real weaknesses |
+| 02  | Decoding Dense Text | Diagnosing what makes a text hard; using AI to break it down to fundamentals and re-explain it in your own words |
 
 More workshops are in progress.
 
