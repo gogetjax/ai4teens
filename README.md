@@ -34,6 +34,7 @@ Each workshop lives in its own folder under `workshops/` and contains:
 |-----|-------|---------------------|
 | 01  | Arguments & Counterarguments | Break down someone's argument, then use AI to build and evaluate a counterargument that targets its real weaknesses |
 | 02  | Decoding Dense Text | Diagnosing what makes a text hard; using AI to break it down to fundamentals and re-explain it in your own words |
+| 03  | Visual Explainers (Anatomy Infographics) | Decompose an object into its parts and specs, prompt AI image models to render a labeled "Anatomy and How It Works" infographic, then evaluate and refine across models to catch wrong labels and invented numbers |
 
 More workshops are in progress.
 
@@ -47,6 +48,10 @@ More workshops are in progress.
 ## What you need
 Any general-purpose AI chatbot: ChatGPT, Claude, Gemini, Copilot, or similar. The prompts are
 tool-agnostic; nothing here depends on a specific product or a paid plan.
+
+Day 03 additionally uses image-generation models. The examples use ChatGPT Image 2
+and Nano Banana 2, but any two or more image models work, and comparing them is
+part of the lesson.
 
 ## A note on safety
 The materials are designed to be age-appropriate, and the lessons emphasize responsible, honest use
