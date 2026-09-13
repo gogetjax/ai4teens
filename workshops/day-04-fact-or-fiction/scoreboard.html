@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bot on Trial: Scoreboard</title>
+<style>
+  :root {
+    --bg: #14161c;
+    --panel: #1f2330;
+    --text: #f3f4f6;
+    --muted: #9aa3b5;
+    --busted: #e5484d;
+    --spin: #f5a524;
+    --cleared: #30a46c;
+    --mistrial: #5b8def;
+    --bonus: #a78bfa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 24px 16px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 18px;
+  }
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    max-width: 1100px;
+    margin: 0 auto 8px;
+  }
+  h1 { font-size: 2.2rem; margin: 0; }
+  .rule { color: var(--muted); font-size: 1.05rem; margin: 0 auto 20px; max-width: 1100px; }
+  .rule strong { color: var(--text); }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 1100px;
+    margin: 0 auto 20px;
+  }
+  input[type="text"] {
+    flex: 1 1 200px;
+    padding: 12px 14px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #3a4052;
+    background: var(--panel);
+    color: var(--text);
+  }
+  button {
+    font: inherit;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #fff;
+    background: #3a4052;
+    font-weight: 600;
+  }
+  button:active { transform: translateY(1px); }
+  .teams {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .team {
+    background: var(--panel);
+    border-radius: 14px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .team-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  .team-name { font-size: 1.4rem; font-weight: 700; word-break: break-word; }
+  .score { font-size: 3.2rem; font-weight: 800; line-height: 1; }
+  .verdicts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .verdicts button { padding: 14px 8px; font-size: 1rem; }
+  .busted { background: var(--busted); }
+  .spin { background: var(--spin); color: #1a1200; }
+  .cleared { background: var(--cleared); }
+  .mistrial { background: var(--mistrial); }
+  .bonus { background: var(--bonus); color: #14102a; }
+  .small { background: #2b3040; color: var(--muted); padding: 8px 10px; font-size: 0.9rem; }
+  .tally {
+    color: var(--muted);
+    font-size: 0.95rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .tally span b { color: var(--text); }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .empty {
+    color: var(--muted);
+    text-align: center;
+    padding: 40px 16px;
+    grid-column: 1 / -1;
+  }
+  .leader { outline: 3px solid #ffd54a; }
+  @media (max-width: 480px) {
+    h1 { font-size: 1.6rem; }
+    .score { font-size: 2.4rem; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Bot on Trial</h1>
+  <div class="row">
+    <button class="small" id="undo" title="Undo the last score">Undo</button>
+    <button class="small" id="reset" title="Clear all teams and scores">Reset board</button>
+  </div>
+</header>
+<p class="rule"><strong>The one rule: no receipt, no points.</strong>
+Busted 3 &middot; Guilty of spin 3 &middot; Cleared 2 &middot; Mistrial 1 &middot; Bonus +1</p>
+
+<div class="controls">
+  <input type="text" id="team-name" placeholder="Team or student name" aria-label="Team name">
+  <button id="add">Add team</button>
+</div>
+
+<div class="teams" id="teams"></div>
+
+<script>
+(function () {
+  var KEY = "bot-on-trial-scoreboard";
+  var POINTS = { busted: 3, spin: 3, cleared: 2, mistrial: 1, bonus: 1 };
+  var LABELS = {
+    busted: "Busted",
+    spin: "Guilty of spin",
+    cleared: "Cleared",
+    mistrial: "Mistrial",
+    bonus: "Bonus"
+  };
+
+  var state = { teams: [], history: [] };
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) state = JSON.parse(raw);
+      if (!state.teams) state.teams = [];
+      if (!state.history) state.history = [];
+    } catch (e) { state = { teams: [], history: [] }; }
+  }
+
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function total(team) {
+    var sum = 0;
+    for (var k in team.counts) sum += team.counts[k] * POINTS[k];
+    return sum;
+  }
+
+  function newTeam(name) {
+    return { name: name, counts: { busted: 0, spin: 0, cleared: 0, mistrial: 0, bonus: 0 } };
+  }
+
+  function render() {
+    var root = document.getElementById("teams");
+    root.innerHTML = "";
+    if (!state.teams.length) {
+      var p = document.createElement("p");
+      p.className = "empty";
+      p.textContent = "Add a team for each student or pair to start scoring.";
+      root.appendChild(p);
+      return;
+    }
+    var best = -1;
+    state.teams.forEach(function (t) { best = Math.max(best, total(t)); });
+
+    state.teams.forEach(function (team, idx) {
+      var card = document.createElement("div");
+      card.className = "team" + (total(team) === best && best > 0 ? " leader" : "");
+
+      var head = document.createElement("div");
+      head.className = "team-head";
+      var name = document.createElement("div");
+      name.className = "team-name";
+      name.textContent = team.name;
+      var score = document.createElement("div");
+      score.className = "score";
+      score.textContent = total(team);
+      head.appendChild(name);
+      head.appendChild(score);
+      card.appendChild(head);
+
+      var verdicts = document.createElement("div");
+      verdicts.className = "verdicts";
+      ["busted", "spin", "cleared", "mistrial", "bonus"].forEach(function (k) {
+        var b = document.createElement("button");
+        b.className = k;
+        b.textContent = LABELS[k] + " +" + POINTS[k];
+        b.addEventListener("click", function () {
+          team.counts[k] += 1;
+          state.history.push({ team: idx, kind: k });
+          save();
+          render();
+        });
+        verdicts.appendChild(b);
+      });
+      var remove = document.createElement("button");
+      remove.className = "small";
+      remove.textContent = "Remove team";
+      remove.addEventListener("click", function () {
+        if (!confirm("Remove " + team.name + " from the board?")) return;
+        state.teams.splice(idx, 1);
+        state.history = state.history.filter(function (h) { return h.team !== idx; })
+          .map(function (h) { return { team: h.team > idx ? h.team - 1 : h.team, kind: h.kind }; });
+        save();
+        render();
+      });
+      verdicts.appendChild(remove);
+      card.appendChild(verdicts);
+
+      var tally = document.createElement("div");
+      tally.className = "tally";
+      ["busted", "spin", "cleared", "mistrial", "bonus"].forEach(function (k) {
+        var s = document.createElement("span");
+        s.innerHTML = LABELS[k] + " <b>" + team.counts[k] + "</b>";
+        tally.appendChild(s);
+      });
+      card.appendChild(tally);
+
+      root.appendChild(card);
+    });
+  }
+
+  document.getElementById("add").addEventListener("click", function () {
+    var input = document.getElementById("team-name");
+    var name = input.value.trim();
+    if (!name) return;
+    state.teams.push(newTeam(name));
+    input.value = "";
+    save();
+    render();
+    input.focus();
+  });
+
+  document.getElementById("team-name").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") document.getElementById("add").click();
+  });
+
+  document.getElementById("undo").addEventListener("click", function () {
+    var last = state.history.pop();
+    if (!last) return;
+    var team = state.teams[last.team];
+    if (team && team.counts[last.kind] > 0) team.counts[last.kind] -= 1;
+    save();
+    render();
+  });
+
+  document.getElementById("reset").addEventListener("click", function () {
+    if (!confirm("Clear every team and every score?")) return;
+    state = { teams: [], history: [] };
+    save();
+    render();
+  });
+
+  load();
+  render();
+})();
+</script>
+</body>
+</html>
