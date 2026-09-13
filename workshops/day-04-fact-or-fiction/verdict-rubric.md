@@ -1,45 +1,34 @@
 # Verdict Rubric (facilitator — how points are earned)
 
-The one rule: no receipt, no points. A receipt is a source the student found,
-opened, and can show on the screen. "The AI said so" is not a receipt. "I read it
-somewhere" is not a receipt. "It feels wrong" is not a receipt.
+You are the judge. A verdict scores only if the student shows a receipt: a source
+they opened, or a documented search that came up empty. "It feels wrong" scores
+nothing. Award points from the scoreboard when the receipt holds up.
 
-## Points per verdict
+| Verdict | What it takes to score | Points |
+|---------|------------------------|--------|
+| Busted | Shows a named source that does not exist (an empty search counts), or proof the claim is false from a real source | 3 |
+| Guilty of spin | Shows the claim is technically true but names the missing context that flips its meaning (a hidden base rate, a cherry-picked year) | 3 |
+| Cleared | Verifies the claim is true and shows a real source, opened, that says what was claimed | 2 |
+| Mistrial | Correctly judges the claim unverifiable and accounts for what they tried and why it fell short | 1 |
 
-| Verdict | Points | The receipt that earns it |
-|---------|--------|---------------------------|
-| Busted | 3 | A source shown not to exist (searched the journal, the author, the title, and came up empty), or a real source that contradicts the claim. |
-| Guilty of spin | 3 | The real number, with the context the claim dropped: the denominator, the base rate, the trend, the definition. |
-| Cleared | 2 | The source opened, and the passage that actually supports the claim, read aloud. |
-| Mistrial | 1 | A list of what was searched and why it did not settle it. Rewards honesty about limits. |
+Bonus points, at your discretion:
+- Receipt bonus (+1): opened the actual source and quoted the relevant line rather
+  than just naming it.
+- Confidence catch (+1): correctly predicted a big gap between how sure the AI
+  sounded and how right it was.
+- Cross-check (+1): found two independent sources that agree, or caught two AIs
+  disagreeing and resolved which was right.
 
-## Bonuses (1 point each, max 2 per case)
-- **Ghost source.** Caught a citation that does not exist at all.
-- **Says the opposite.** Opened a real source and found it contradicts the claim.
-- **Out of how many.** Supplied the missing denominator for a scary count.
-- **Confidence gap.** Named the gap between how sure the AI sounded and how right
-  it was, with both numbers.
-- **Head-to-head.** Used a second AI, logged a disagreement, and resolved it with a
-  receipt.
+Guilty of spin and Busted are worth the most on purpose. A fabricated source is the
+signature failure of AI, and a true-but-misleading stat is the hardest lie to
+catch, so both deserve the top score. Cleared matters too: proving something real
+is real, with a receipt, is a genuine win and keeps the game from rewarding only
+cynicism.
 
-## What does not score
-- A verdict with no source opened.
-- A verdict that rests on the AI's own summary of its source.
-- "I agree with the claim" or "I disagree with the claim." Opinions are free.
-- A Mistrial with no record of what was tried.
-
-## Judging notes
-- Lower the verdict, not the standard. A student who claims Busted but only shows
-  that a source was hard to find has earned a Mistrial, not a Busted. Say so and
-  give the Mistrial point.
-- Reward the honest reversal. The student whose Phase 1 prediction was wrong and
-  says so out loud is doing exactly what the day is for.
-- Circulate during Phase 3 and ask "show me" early. Students should not discover
-  at the verdict that their receipt is missing.
-- Add points on `scoreboard.html` as verdicts are accepted. The bonus button covers
-  the bonus list above.
-
-10 or more points across the session = the student can verify a claim on their
-own. 5 to 9 = solid, push harder on opening sources instead of trusting summaries.
-Under 5 = they are still scoring opinions, send them back to Phase 3 with the case
-file.
+Judge's reminders:
+- No receipt, no points. Hold this line even when the student is clearly right on
+  instinct. The instinct is not the skill; the receipt is.
+- A Mistrial with a good account of the search beats a confident wrong verdict.
+  Reward the student who says "I could not confirm this" honestly.
+- Do not award points for agreeing or disagreeing with a claim. Only for verifying
+  it.

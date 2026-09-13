@@ -14,25 +14,21 @@ judge deciding whether your receipt is good enough to score.
 
 ## Score it
 Points go on the scoreboard, by the one rule: no receipt, no points. The scoring
-rewards the catches that take real work: a ghost source you proved does not exist,
-a true number you showed was missing its denominator, a real source you opened and
-found says the opposite. See `verdict-rubric.md` for the point values. A Mistrial
-scores too, but only if you can name what you tried and why it fell short.
+rewards the catches that matter most:
+- Busted, a fabricated source or false claim you can prove: top points.
+- Guilty of spin, a true-but-misleading claim you can show the missing context for:
+  top points, because it is the hardest catch.
+- Cleared, verified true with a real source you opened: solid points.
+- Mistrial, correctly judged unverifiable with an account of what you tried: points
+  for honesty.
+See `verdict-rubric.md` for the exact values.
 
-## Take questions
-Expect the group to push. The questions that matter:
-- "Did you open that source yourself, or did the AI tell you it says that?"
-- "Out of how many?"
-- "What would have changed your verdict?"
-If you can answer without your notes, your verdict holds. If you cannot, the judge
-is right to withhold the points, and you are right to go back and look.
+## What a strong case sounds like
+"The AI said this stat with total confidence and cited a 2019 study by a real-
+sounding author. I searched for it. It does not exist. Busted, and here is my empty
+search to prove it." Or: "The number is real, I found the actual report. But it left
+out that the total it comes from is tiny, so the scary percentage is misleading.
+Guilty of spin, and here is the base rate it hid."
 
-## Compare predictions
-Before you sit down, read out what you wrote in Phase 1: the verdict you predicted
-and the confidence you expected from the AI. Say whether you were right. The
-student who predicted Cleared and had to deliver Busted has learned more than the
-one who guessed correctly, so do not hide the miss.
-
-A strong verdict is not the loudest one. It is the student who can say "the AI
-cited a 2019 study in a real journal by a real author, I searched the journal's own
-archive, and that paper does not exist. Busted, and here is the search."
+The best investigator in the room is not the one with the strongest opinion. It is
+the one who opened the source, and can show you what they found.

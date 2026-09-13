@@ -1,53 +1,29 @@
-# Prompt: Lateral reading (Phase 3)
+# Prompt: Lateral reading (check the source)
 
-This is the verification step, and most of it happens outside the chat window.
-For each source the AI named, you check three things. Do the checks in a search
-engine and a browser, in a new tab. Use the AI only for the last part, as a
-checker whose answer you then confirm.
+Use this in Phase 3, for each source the AI named. Lateral reading means you do not
+judge a source by how official it looks on its own page. You open other tabs and
+check what the rest of the world says about it.
 
-## Check 1: Does it exist?
-Search the exact title in quotes. Search the author's name plus the journal or
-publisher. If it is a journal article, go to the journal's own website and search
-its archive. If none of that finds it, search the title without quotes in case the
-AI got a word wrong.
+## Do these three checks by hand first
+1. **Does it exist?** Search the exact title. Search the author plus the topic. If
+   nothing comes up, that is a strong sign it was invented. Screenshot the empty
+   result; that empty search is your receipt.
+2. **Does it say what the AI claimed?** Open it and read the relevant part. A real
+   source can still be misquoted, or say the opposite.
+3. **Is it credible?** Who published it, and would they actually know? Is it a
+   research body, a news outlet, a random blog, or an AI-written page?
 
-If you still cannot find it: ghost source. Log it as one. That alone can be a
-Busted receipt, but show your searches.
-
-## Check 2: Does it say what the AI claimed?
-Open the source. Find the passage that supports the claim. Read it. Ask:
-- Is the number the same as the AI quoted?
-- Is it out of the same total?
-- Does the source draw the same conclusion, or a weaker one, or the opposite?
-A real source that says something different is a common outcome, and a strong
-receipt for Guilty of spin or Busted.
-
-## Check 3: Is it credible?
-Do not judge a source by how official it looks. Leave it and read sideways:
-search the publisher or author's name, and see what other sources say about them.
-Ask who would know this, and whether this source is that. A blog quoting a study
-is weaker than the study. A study in a field's main journal is stronger than a
-press release about it.
-
-## Use the AI as a checker (then confirm)
-Once you have opened the sources, you can ask an AI to help you interpret what
-you found. Paste what the source actually says, not what the AI first told you.
-
+## Use a text AI as a second opinion, not the judge
 ```
-I asked an AI about this claim: "[YOUR CLAIM]"
-It cited this source: [AUTHOR, TITLE, YEAR, WHERE PUBLISHED]
-I found the source and this is the relevant passage, quoted exactly:
-"[PASTE THE PASSAGE]"
-
-Does this passage support the claim as stated, support a weaker version, or
-contradict it? Point to the specific words that decide it. Then tell me one thing
-I should check next before I trust this source.
+Here is a source an AI gave me for a claim: [TITLE, AUTHOR, YEAR].
+Here is what it was supposedly backing up: [THE CLAIM].
+Help me check it: does this source appear to be real, and if so, does it actually
+support that claim or not? Explain your reasoning, then tell me exactly what to
+search to confirm it myself. I will make the final call by opening it.
 ```
 
-The answer is a lead. If the AI says "this contradicts the claim," go back to the
-passage and confirm that you can see the contradiction yourself. The receipt is
-the passage, not the AI's reading of it.
+Why it works: the AI that made the claim and the tools you use to check it are
+different, so one can expose the other. But the verdict is yours, from a source you
+opened. If you cannot open it, you cannot clear it.
 
-Why it works: a fabricated source falls at Check 1. A misused real source falls at
-Check 2. A weak source falls at Check 3. Most bad claims fail one of the three, and
-you never have to take anyone's word for which.
+After the checks, ask yourself: if the judge said "show me," which tab would I open?

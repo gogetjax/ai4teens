@@ -1,24 +1,30 @@
 # The Investigator Toolkit
 
-Four prompts, used in order. Each one makes the AI commit to something specific,
-because a specific claim can be checked and a vague one cannot.
+You use AI twice in this workshop, in opposite roles, and keeping them apart is the
+skill.
 
-**The defendant and the checker are the same tool.** In this workshop you use an
-AI to generate the claim and its sources, and you may use an AI again to help you
-check them. Keep the two jobs separate in your head. When it is the defendant,
-nothing it says counts until you verify it. When it is the checker, its answer is
-a lead, not a receipt. The receipt is always a source you opened yourself.
+**1. The AI as the defendant.** First you make the AI state the claim and commit to
+sources. You are not asking it for the truth. You are getting its answer on the
+record so you can test it. The more specific you force it to be, the more there is
+to check.
+- `interrogate-the-bot.md` — get a clear claim and specific sources.
+- `head-to-head.md` — put the same claim to a second AI and find where they split.
 
-## Order of use
-1. `interrogate-the-bot.md` (Phase 2). Get the claim and its sources on the
-   record, as specifically as possible.
-2. `head-to-head.md` (Phase 2, if there is time). Ask a second AI the same thing
-   and log where they disagree.
-3. `lateral-reading.md` (Phase 3). Check each source three ways: exists, says it,
-   credible.
-4. `out-of-how-many.md` (Phase 3). Interrogate any number the claim rests on.
+**2. The open web as the judge.** Then you leave the AI and check its answer against
+reality: search engine, the actual source, other sources about that source.
+- `lateral-reading.md` — check a source exists, says what was claimed, and is
+  credible.
+- `out-of-how-many.md` — interrogate a statistic for the missing denominator.
 
-## The golden rule
-The AI is on trial. It does not get to be its own witness. Every prompt below ends
-by sending you to a source outside the chat window, on purpose, because that is
-where the verdict lives.
+**The golden rule:** the AI is a witness, not the judge. A witness can be confident
+and wrong. Nothing it says counts until you have checked it against a source you
+opened yourself. That is why every point in the game needs a receipt.
+
+Order of use:
+1. `interrogate-the-bot.md` (Phase 2)
+2. `head-to-head.md` (Phase 2, optional)
+3. `lateral-reading.md` (Phase 3)
+4. `out-of-how-many.md` (Phase 3, when the claim is a number)
+
+Every prompt below ends by handing a decision back to you, on purpose. The AI does
+not reach the verdict. You do.

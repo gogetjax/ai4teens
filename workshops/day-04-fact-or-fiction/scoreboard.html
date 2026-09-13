@@ -3,283 +3,192 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bot on Trial: Scoreboard</title>
+<title>AI: Fact or Fiction — Scoreboard</title>
 <style>
   :root {
-    --bg: #14161c;
-    --panel: #1f2330;
-    --text: #f3f4f6;
-    --muted: #9aa3b5;
-    --busted: #e5484d;
-    --spin: #f5a524;
-    --cleared: #30a46c;
-    --mistrial: #5b8def;
-    --bonus: #a78bfa;
+    --bg: #f4f2ec; --card: #ffffff; --ink: #23221f; --muted: #6b6a64;
+    --line: #d9d6cc; --busted: #b23b2e; --spin: #b5731a; --cleared: #2f7d54;
+    --mistrial: #4a6b86; --accent: #2b2b28;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1b19; --card: #262523; --ink: #f0eee7; --muted: #a3a199;
+      --line: #3a3834; --busted: #e0685a; --spin: #e0a24a; --cleared: #5cc088;
+      --mistrial: #7fa8c9; --accent: #f0eee7;
+    }
   }
   * { box-sizing: border-box; }
   body {
-    margin: 0;
-    padding: 24px 16px;
-    background: var(--bg);
-    color: var(--text);
+    margin: 0; background: var(--bg); color: var(--ink);
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    font-size: 18px;
+    padding: 24px; -webkit-font-smoothing: antialiased;
   }
-  header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 12px;
-    max-width: 1100px;
-    margin: 0 auto 8px;
+  header { max-width: 1100px; margin: 0 auto 8px; }
+  h1 { font-size: 30px; font-weight: 700; margin: 0; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); font-size: 15px; margin-top: 4px; }
+  .rule {
+    max-width: 1100px; margin: 14px auto; padding: 10px 16px; border-radius: 10px;
+    background: var(--card); border: 1px solid var(--line); font-size: 15px;
   }
-  h1 { font-size: 2.2rem; margin: 0; }
-  .rule { color: var(--muted); font-size: 1.05rem; margin: 0 auto 20px; max-width: 1100px; }
-  .rule strong { color: var(--text); }
+  .rule b { color: var(--busted); }
+  .legend {
+    max-width: 1100px; margin: 0 auto 16px; display: flex; flex-wrap: wrap;
+    gap: 16px; font-size: 13px; color: var(--muted);
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
   .controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    max-width: 1100px;
-    margin: 0 auto 20px;
+    max-width: 1100px; margin: 0 auto 20px; display: flex; gap: 10px;
+    flex-wrap: wrap; align-items: center;
   }
-  input[type="text"] {
-    flex: 1 1 200px;
-    padding: 12px 14px;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: 1px solid #3a4052;
-    background: var(--panel);
-    color: var(--text);
+  input[type=text] {
+    flex: 1; min-width: 200px; padding: 12px 14px; font-size: 16px;
+    border-radius: 10px; border: 1px solid var(--line); background: var(--card);
+    color: var(--ink);
   }
   button {
-    font: inherit;
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 16px;
-    color: #fff;
-    background: #3a4052;
-    font-weight: 600;
+    font-family: inherit; cursor: pointer; border: none; border-radius: 10px;
+    font-size: 15px; font-weight: 600; padding: 12px 16px; color: #fff;
+    background: var(--accent); color: var(--bg);
   }
-  button:active { transform: translateY(1px); }
-  .teams {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 16px;
-    max-width: 1100px;
-    margin: 0 auto;
+  button.ghost {
+    background: transparent; color: var(--muted); border: 1px solid var(--line);
+    font-weight: 500;
   }
+  #board { max-width: 1100px; margin: 0 auto; display: grid; gap: 14px; }
   .team {
-    background: var(--panel);
-    border-radius: 14px;
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 18px 20px; display: grid; grid-template-columns: 1fr auto;
+    align-items: center; gap: 16px;
   }
-  .team-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
+  .team.leader { border-color: var(--cleared); border-width: 2px; }
+  .team .name { font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+  .crown { font-size: 16px; }
+  .team .score { font-size: 40px; font-weight: 800; text-align: right; min-width: 70px; }
+  .btns { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .btns button.v { color: #fff; padding: 10px 14px; font-size: 14px; }
+  .b-busted { background: var(--busted); }
+  .b-spin { background: var(--spin); }
+  .b-cleared { background: var(--cleared); }
+  .b-mistrial { background: var(--mistrial); }
+  .btns .undo, .btns .remove {
+    background: transparent; color: var(--muted); border: 1px solid var(--line);
+    font-weight: 500; padding: 10px 12px; font-size: 13px;
   }
-  .team-name { font-size: 1.4rem; font-weight: 700; word-break: break-word; }
-  .score { font-size: 3.2rem; font-weight: 800; line-height: 1; }
-  .verdicts {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-  .verdicts button { padding: 14px 8px; font-size: 1rem; }
-  .busted { background: var(--busted); }
-  .spin { background: var(--spin); color: #1a1200; }
-  .cleared { background: var(--cleared); }
-  .mistrial { background: var(--mistrial); }
-  .bonus { background: var(--bonus); color: #14102a; }
-  .small { background: #2b3040; color: var(--muted); padding: 8px 10px; font-size: 0.9rem; }
-  .tally {
-    color: var(--muted);
-    font-size: 0.95rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .tally span b { color: var(--text); }
-  .row { display: flex; gap: 8px; flex-wrap: wrap; }
-  .empty {
-    color: var(--muted);
-    text-align: center;
-    padding: 40px 16px;
-    grid-column: 1 / -1;
-  }
-  .leader { outline: 3px solid #ffd54a; }
-  @media (max-width: 480px) {
-    h1 { font-size: 1.6rem; }
-    .score { font-size: 2.4rem; }
-  }
+  .btns .spacer { flex: 1; }
+  .empty { max-width: 1100px; margin: 40px auto; text-align: center; color: var(--muted); font-size: 16px; }
 </style>
 </head>
 <body>
 <header>
-  <h1>Bot on Trial</h1>
-  <div class="row">
-    <button class="small" id="undo" title="Undo the last score">Undo</button>
-    <button class="small" id="reset" title="Clear all teams and scores">Reset board</button>
-  </div>
+  <h1>AI: Fact or Fiction</h1>
+  <div class="sub">Bot on Trial — the scoreboard. Reality is the judge.</div>
 </header>
-<p class="rule"><strong>The one rule: no receipt, no points.</strong>
-Busted 3 &middot; Guilty of spin 3 &middot; Cleared 2 &middot; Mistrial 1 &middot; Bonus +1</p>
 
-<div class="controls">
-  <input type="text" id="team-name" placeholder="Team or student name" aria-label="Team name">
-  <button id="add">Add team</button>
+<div class="rule"><b>No receipt, no points.</b> A verdict scores only when the investigator shows a source they opened, or a search that came up empty.</div>
+
+<div class="legend">
+  <span><span class="dot" style="background:var(--busted)"></span>Busted +3 (fabricated or false)</span>
+  <span><span class="dot" style="background:var(--spin)"></span>Guilty of spin +3 (true but misleading)</span>
+  <span><span class="dot" style="background:var(--cleared)"></span>Cleared +2 (checks out)</span>
+  <span><span class="dot" style="background:var(--mistrial)"></span>Mistrial +1 (can't verify)</span>
 </div>
 
-<div class="teams" id="teams"></div>
+<div class="controls">
+  <input type="text" id="teamName" placeholder="Add an investigator or team name" maxlength="40">
+  <button id="addBtn">Add</button>
+  <button class="ghost" id="resetBtn">Reset all</button>
+</div>
+
+<div id="board"></div>
+<div class="empty" id="empty">Add a team to start the trial.</div>
 
 <script>
-(function () {
-  var KEY = "bot-on-trial-scoreboard";
-  var POINTS = { busted: 3, spin: 3, cleared: 2, mistrial: 1, bonus: 1 };
-  var LABELS = {
-    busted: "Busted",
-    spin: "Guilty of spin",
-    cleared: "Cleared",
-    mistrial: "Mistrial",
-    bonus: "Bonus"
-  };
-
-  var state = { teams: [], history: [] };
+  var KEY = "fact-or-fiction-scoreboard-v1";
+  var POINTS = { busted: 3, spin: 3, cleared: 2, mistrial: 1 };
+  var teams = load();
 
   function load() {
-    try {
-      var raw = localStorage.getItem(KEY);
-      if (raw) state = JSON.parse(raw);
-      if (!state.teams) state.teams = [];
-      if (!state.history) state.history = [];
-    } catch (e) { state = { teams: [], history: [] }; }
+    try { var raw = localStorage.getItem(KEY); return raw ? JSON.parse(raw) : []; }
+    catch (e) { return []; }
   }
-
   function save() {
-    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+    try { localStorage.setItem(KEY, JSON.stringify(teams)); } catch (e) {}
   }
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
 
-  function total(team) {
-    var sum = 0;
-    for (var k in team.counts) sum += team.counts[k] * POINTS[k];
-    return sum;
+  function addTeam() {
+    var el = document.getElementById("teamName");
+    var name = el.value.trim();
+    if (!name) return;
+    teams.push({ id: uid(), name: name, score: 0, history: [] });
+    el.value = ""; el.focus(); save(); render();
   }
-
-  function newTeam(name) {
-    return { name: name, counts: { busted: 0, spin: 0, cleared: 0, mistrial: 0, bonus: 0 } };
+  function award(id, kind) {
+    var t = teams.find(function (x) { return x.id === id; });
+    if (!t) return;
+    var pts = POINTS[kind];
+    t.score += pts; t.history.push(pts); save(); render();
+  }
+  function undo(id) {
+    var t = teams.find(function (x) { return x.id === id; });
+    if (!t || !t.history.length) return;
+    t.score -= t.history.pop(); save(); render();
+  }
+  function removeTeam(id) {
+    teams = teams.filter(function (x) { return x.id !== id; }); save(); render();
+  }
+  function resetAll() {
+    if (!teams.length) return;
+    if (!confirm("Reset all teams and scores?")) return;
+    teams = []; save(); render();
   }
 
   function render() {
-    var root = document.getElementById("teams");
-    root.innerHTML = "";
-    if (!state.teams.length) {
-      var p = document.createElement("p");
-      p.className = "empty";
-      p.textContent = "Add a team for each student or pair to start scoring.";
-      root.appendChild(p);
-      return;
-    }
-    var best = -1;
-    state.teams.forEach(function (t) { best = Math.max(best, total(t)); });
-
-    state.teams.forEach(function (team, idx) {
-      var card = document.createElement("div");
-      card.className = "team" + (total(team) === best && best > 0 ? " leader" : "");
-
-      var head = document.createElement("div");
-      head.className = "team-head";
-      var name = document.createElement("div");
-      name.className = "team-name";
-      name.textContent = team.name;
-      var score = document.createElement("div");
-      score.className = "score";
-      score.textContent = total(team);
-      head.appendChild(name);
-      head.appendChild(score);
-      card.appendChild(head);
-
-      var verdicts = document.createElement("div");
-      verdicts.className = "verdicts";
-      ["busted", "spin", "cleared", "mistrial", "bonus"].forEach(function (k) {
-        var b = document.createElement("button");
-        b.className = k;
-        b.textContent = LABELS[k] + " +" + POINTS[k];
-        b.addEventListener("click", function () {
-          team.counts[k] += 1;
-          state.history.push({ team: idx, kind: k });
-          save();
-          render();
-        });
-        verdicts.appendChild(b);
-      });
-      var remove = document.createElement("button");
-      remove.className = "small";
-      remove.textContent = "Remove team";
-      remove.addEventListener("click", function () {
-        if (!confirm("Remove " + team.name + " from the board?")) return;
-        state.teams.splice(idx, 1);
-        state.history = state.history.filter(function (h) { return h.team !== idx; })
-          .map(function (h) { return { team: h.team > idx ? h.team - 1 : h.team, kind: h.kind }; });
-        save();
-        render();
-      });
-      verdicts.appendChild(remove);
-      card.appendChild(verdicts);
-
-      var tally = document.createElement("div");
-      tally.className = "tally";
-      ["busted", "spin", "cleared", "mistrial", "bonus"].forEach(function (k) {
-        var s = document.createElement("span");
-        s.innerHTML = LABELS[k] + " <b>" + team.counts[k] + "</b>";
-        tally.appendChild(s);
-      });
-      card.appendChild(tally);
-
-      root.appendChild(card);
+    var board = document.getElementById("board");
+    var empty = document.getElementById("empty");
+    board.innerHTML = "";
+    empty.style.display = teams.length ? "none" : "block";
+    var sorted = teams.slice().sort(function (a, b) { return b.score - a.score; });
+    var top = sorted.length ? sorted[0].score : 0;
+    sorted.forEach(function (t) {
+      var isLeader = t.score > 0 && t.score === top;
+      var div = document.createElement("div");
+      div.className = "team" + (isLeader ? " leader" : "");
+      div.innerHTML =
+        '<div class="name">' + (isLeader ? '<span class="crown">★</span>' : '') + esc(t.name) + '</div>' +
+        '<div class="score">' + t.score + '</div>' +
+        '<div class="btns">' +
+          '<button class="v b-busted" data-a="busted" data-id="' + t.id + '">Busted +3</button>' +
+          '<button class="v b-spin" data-a="spin" data-id="' + t.id + '">Guilty of spin +3</button>' +
+          '<button class="v b-cleared" data-a="cleared" data-id="' + t.id + '">Cleared +2</button>' +
+          '<button class="v b-mistrial" data-a="mistrial" data-id="' + t.id + '">Mistrial +1</button>' +
+          '<span class="spacer"></span>' +
+          '<button class="undo" data-a="undo" data-id="' + t.id + '">Undo</button>' +
+          '<button class="remove" data-a="remove" data-id="' + t.id + '">Remove</button>' +
+        '</div>';
+      board.appendChild(div);
+    });
+  }
+  function esc(s) {
+    return s.replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
   }
 
-  document.getElementById("add").addEventListener("click", function () {
-    var input = document.getElementById("team-name");
-    var name = input.value.trim();
-    if (!name) return;
-    state.teams.push(newTeam(name));
-    input.value = "";
-    save();
-    render();
-    input.focus();
+  document.getElementById("addBtn").addEventListener("click", addTeam);
+  document.getElementById("resetBtn").addEventListener("click", resetAll);
+  document.getElementById("teamName").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") addTeam();
   });
-
-  document.getElementById("team-name").addEventListener("keydown", function (e) {
-    if (e.key === "Enter") document.getElementById("add").click();
+  document.getElementById("board").addEventListener("click", function (e) {
+    var btn = e.target.closest("button"); if (!btn) return;
+    var id = btn.getAttribute("data-id"); var a = btn.getAttribute("data-a");
+    if (a === "undo") undo(id);
+    else if (a === "remove") removeTeam(id);
+    else award(id, a);
   });
-
-  document.getElementById("undo").addEventListener("click", function () {
-    var last = state.history.pop();
-    if (!last) return;
-    var team = state.teams[last.team];
-    if (team && team.counts[last.kind] > 0) team.counts[last.kind] -= 1;
-    save();
-    render();
-  });
-
-  document.getElementById("reset").addEventListener("click", function () {
-    if (!confirm("Clear every team and every score?")) return;
-    state = { teams: [], history: [] };
-    save();
-    render();
-  });
-
-  load();
   render();
-})();
 </script>
 </body>
 </html>

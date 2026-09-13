@@ -1,44 +1,27 @@
-# Prompt: Interrogate the bot (Phase 2)
+# Prompt: Interrogate the bot (get a claim and sources)
 
-Use this to get the AI's answer on the record. The goal is specifics. A named
-author, a title, a year, a number. Vague answers cannot be checked, and an answer
-that cannot be checked cannot earn a point either way.
-
-```
-I am investigating this claim: "[YOUR CLAIM, EXACTLY AS PEOPLE SAY IT]"
-
-Do three things:
-1. State the claim clearly in one sentence, in the strongest form people actually
-   use.
-2. Explain why people believe it and what evidence supports it.
-3. Cite at least three specific sources for that evidence. For each one give the
-   author or organization, the title, the year, and where it was published. If a
-   source contains a specific number, quote the number and say what it is out of.
-
-Be as specific as you can. Do not say "studies show" or "experts agree" without
-naming the study or the expert. If you are not certain a source is real, say so
-next to that source.
-```
-
-Write down everything it gives you, exactly, on your case file. Then rate how
-confident it sounded, one to five, on your confidence meter, before you check a
-single thing.
-
-## If it hedges or refuses to cite
-Some AIs will say they cannot browse or cannot guarantee sources. That is a
-useful answer in itself. Log it. Then push once:
+Use this in Phase 2. The goal is to pin the AI down: a clear claim, and specific
+sources you can actually check. Vague answers cannot be put on trial.
 
 ```
-Understood. Give me the sources you would expect to support this claim, with your
-best recollection of author, title, and year, and mark each one with how sure you
-are that it exists.
+I want to fact-check this claim: [PASTE THE CLAIM].
+
+1. Tell me clearly whether it is true, false, or more complicated, and why.
+2. Give me your specific sources: the study or report name, the author or
+   organization, and the year. I want ones I can look up, not "experts say."
+3. If a number is involved, tell me what it is and what it is out of (the total or
+   the comparison group).
+Do not soften it or hedge into nothing. Give me your actual answer and your actual
+sources so I can check them.
 ```
 
-Whatever it produces is now evidence. Even the hedges. A model that said "I am
-not sure this exists" and was right has done better than one that stated a ghost
-source with total confidence.
+Then log every claim and every source it names, exactly, on your case file. Do not
+argue with it or correct it yet. You want its real answer on the record.
 
-Why it works: the more specific you force the answer to be, the more there is to
-verify, and the more places a fabrication can be caught. An AI that invents a
-source will usually invent a plausible one, and plausible is exactly what you can
-check.
+Why it works: fact-checking needs something specific to check. By forcing names,
+years, and numbers, you turn a vague vibe into concrete claims that either hold up
+or fall apart when you open them. And if the AI invents a source, this is the step
+that gives you the fake to catch.
+
+One thing to notice as you go: how confident does it sound while it does this? Write
+that down now, before you find out whether it was right.

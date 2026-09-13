@@ -1,41 +1,30 @@
-# Prompt: Out of how many (Phase 3)
+# Prompt: Out of how many? (interrogate a statistic)
 
-Use this on any claim that rests on a number. It makes the AI supply the context
-that the number arrived without: the denominator, the base rate, the trend, the
-definition. Then you verify the context the same way you verified the sources,
-because the AI's answer here is a new claim, not a receipt.
+Use this in Phase 3 when the claim rests on a number. Most misleading statistics are
+not fake. They are true numbers missing the context that would change their meaning.
+Run the claim through the tricks in `how-a-statistic-lies.md`.
 
+## Ask these by hand
+- Out of how many? A count means nothing without its denominator. "X happened" needs
+  "out of how many, compared to whom."
+- Count or rate? A bigger group racks up more of everything just by being bigger.
+  Compare rates, not totals.
+- Compared to what, and over what span? One year or one city can spike while the
+  trend goes the other way.
+- Linked or caused? Two things moving together is not one causing the other.
+
+## Get help finding the missing piece
 ```
-This claim rests on a number: "[THE NUMBER, EXACTLY AS THE CLAIM STATES IT]"
-
-Answer each of these separately, and for each one name the source you are
-drawing on:
-1. Out of how many? What is the total this number is a part of, and what is the
-   rate?
-2. Compared to what? What is the same rate for the rest of the population, or for
-   the obvious comparison group?
-3. Before and after? If this is a change or a risk, what are the absolute numbers
-   before and after, not just the percentage change?
-4. Over what period? What does the trend look like over a longer window than the
-   claim uses?
-5. What was counted? What definition was used, and would a different reasonable
-   definition change the number a lot?
-
-If any of these makes the claim look different from how it was stated, say which
-one and how.
+Here is a statistic from a claim I'm checking: [THE NUMBER AND WHAT IT SUPPOSEDLY
+SHOWS].
+Help me find what context it might be missing: what is the denominator or base rate,
+what would a fair comparison be, and over what time span? Point me to the original
+data so I can check the honest version myself. Do not just agree with the number.
 ```
 
-## Then verify the context
-Take the denominator, base rate, or trend the AI gave you and find it yourself.
-Official statistics agencies, the original study, a reputable fact-checking site.
-Write the real number on your case file next to the claimed one.
+Why it works: a scary statistic usually wins by dropping the denominator. The single
+question "out of how many" defuses most of them, and finding the real base rate is
+exactly the receipt that earns a Guilty of spin verdict.
 
-If the number was true but the context flips its meaning, your verdict is Guilty
-of spin, and your receipt is the real number with its context. If the number
-itself does not hold up, that is Busted. If the context is impossible to find in
-the time you have, say what you searched and take the Mistrial.
-
-Why it works: the five questions are the five tricks from `how-a-statistic-lies.md`
-turned into a checklist. A number that survives all five is a number you can
-repeat. A number that fails one is a number you now understand better than the
-person who told it to you.
+Before you rule, ask yourself: is the number wrong, or is it true but missing
+something? Those are two different verdicts.
