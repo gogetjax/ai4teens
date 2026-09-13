@@ -35,7 +35,7 @@ Each workshop lives in its own folder under `workshops/` and contains:
 | 01  | Arguments & Counterarguments | Break down someone's argument, then use AI to build and evaluate a counterargument that targets its real weaknesses |
 | 02  | Decoding Dense Text | Diagnosing what makes a text hard; using AI to break it down to fundamentals and re-explain it in your own words |
 | 03  | Visual Explainers (Anatomy Infographics) | Decompose an object into its parts and specs, prompt AI image models to render a labeled "Anatomy and How It Works" infographic, then evaluate and refine across models to catch wrong labels and invented numbers |
-| 04  | AI: Fact or Fiction (Bot on Trial) | Put a claim and the AI's sources on trial: interrogate the bot, verify sources by lateral reading, spot how a statistic misleads, and reach a defended verdict backed by a receipt |
+| 04  | AI: Fact or Fiction | Put a claim and the AI's sources on trial: interrogate the bot, verify sources by lateral reading, spot how a statistic misleads, and reach a defended verdict backed by a receipt |
 
 More workshops are in progress.
 

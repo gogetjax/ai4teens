@@ -1,4 +1,4 @@
-# Day 4 — AI: Fact or Fiction (Bot on Trial)
+# Day 4 — AI: Fact or Fiction
 
 ## The skill
 Taking a claim you cannot personally settle, getting an AI to state it and back it
